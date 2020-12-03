@@ -1,0 +1,38 @@
+version: '3'
+
+services:
+  pg:
+    image: postgres
+    container_name: pg-test-1
+    ports:
+      - '5600:5632'
+    environment:
+      - POSTGRES_USER=docker
+      - POSTGRES_PASSWORD=docker
+      - POSTGRES_DB=pg-test-1
+    volumes:
+      - ./docker/pg/postgres.conf:/etc/postgresql/postgresql.conf
+      - ./docker/pg:/var/lib/postgresql/data2
+    command: postgres -c config_file=/etc/postgresql/postgresql.conf
+    networks:
+      - postgres
+    restart: always
+
+  pgadmin:
+    container_name: pgadmin_test_1
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@pgadmin.org}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
+      PGADMIN_SERVER_JSON_FILE: /tmp/.pgadmin/servers.json
+    volumes:
+      - ./docker/pgadmin:/tmp/.pgadmin
+    ports:
+      - '${PGADMIN_PORT:-5650}:80'
+    networks:
+      - postgres
+    restart: unless-stopped
+
+networks:
+  postgres:
+    driver: bridge

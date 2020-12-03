@@ -1,10 +1,11 @@
 {
-  "name": "wheel-of-chance",
+  "name": "express-ts-practice",
   "version": "1.0.0",
   "main": "src/index.ts",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon"
+    "start": "nodemon",
+    "knex": "npx knex --knexfile src/data/knexfile.ts"
   },
   "dependencies": {
     "@types/cors": "^2.8.8",
