@@ -32,16 +32,6 @@ export default async ({ server }: ExpressLoader): Promise<void> => {
   // Handle Celebration Validation Errors
   server.use(errors());
 
-  // Check For express-jwt Error
-  server.use(
-    (err: HttpError, req: Request, res: Response, next: NextFunction) => {
-      if (err.name === 'UnauthorizedError') {
-        return res.status(401).send({ message: err.message }).end();
-      }
-      return next(err);
-    },
-  );
-
   // Handle All Errors
   server.use(
     (err: HttpError, req: Request, res: Response, next: NextFunction) => {

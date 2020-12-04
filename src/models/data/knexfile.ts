@@ -1,6 +1,6 @@
 import dotenv from 'dotenv';
 import { Config } from 'knex';
-dotenv.config({ path: '../../.env' });
+dotenv.config({ path: '../../../.env' });
 
 const knexConfig: { [key: string]: Config } = {
   development: {
